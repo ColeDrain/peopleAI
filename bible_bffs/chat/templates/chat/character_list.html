@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Biblical Bffs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="relative">
+    <div class="flex flex-row justify-around items-center mx-0 mt-8 mb-4">
+        <div class="text-center">
+            <p class="text-4xl italic">Bible Bffs</p>
+            <!-- <p class="italic mt-3">That Thou mayest Chat 😇</p> -->
+        </div>
+    
+        <div
+            class="hidden sm:flex items-center w-96 bg-white ring-1 ring-slate-900/10 hover:ring-slate-300 focus-within:ring-2 focus-within:ring-sky-500 shadow-sm rounded-lg dark:bg-slate-800 dark:ring-0">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="flex-none w-6 h-6 mx-3 text-slate-300 dark:text-slate-400" aria-hidden="true">
+                <circle cx="11" cy="11" r="6"></circle>
+                <path d="M19 19L16.5 16.5"></path>
+            </svg>
+            <input type="search"
+                class="flex-auto h-12 px-3 text-slate-400 placeholder-slate-400 bg-transparent focus:outline-none dark:text-slate-300 dark:placeholder-slate-500"
+                placeholder="Character search..." />
+        </div>
+          
+    </div>
+
+    <ul
+        class="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+        {% for character in characters %}
+        <li class="group cursor-pointer">
+            <a href="{% url 'character_chat' character.id %}">
+                <img src="{{ character.image_url }}" class="h-96 w-full object-cover group-hover:opacity-75 rounded-lg">
+                <h3 class="mt-4 text-sm text-gray-700">{{ character.name }}</h3>
+                <p class="mt-1 text-lg font-medium text-gray-900">{{ character.about }}</p>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('input[type="search"]').on('keyup', function() {
+            var searchText = $(this).val().toLowerCase();
+            $('ul.grid > li').each(function() {
+                var currentLiText = $(this).text().toLowerCase(),
+                    showCurrentLi = currentLiText.indexOf(searchText) !== -1;
+                $(this).toggle(showCurrentLi);
+            });
+        });
+    });
+    </script>
+
+</body>
+
+</html>

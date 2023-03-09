@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bible Bffs - {{ character }}</title>
+    <style>
+        .typing-indicator {
+            font-style: italic;
+            color: #ccc;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-800 text-white">
+    <div class="flex flex-col h-screen max-w-5xl mx-auto">
+        <div class="flex justify-start items-center mt-8 space-x-4">
+            <a href="{% url 'character_list' %}" class="block ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+            </a>
+                     
+            <div class="flex flex-col items-start">
+                <span class="text-xl text-center font-medium">{{ character.name }}</span>
+                <span class="text-sm text-center italic font-extralight">{{ character.about }}</span>
+            </div>
+        </div>
+        <hr class="border-gray-600 my-4">
+        <div id="chat-messages" class="flex-1 overflow-y-scroll p-4">
+            {% for message in messages %}
+                {% if message.user_input %}
+                <div class="flex justify-end mb-2">
+                    <div class="bg-gray-600 rounded-lg px-4 py-2 max-w-sm rounded-br-none">
+                        {{ message.user_input }}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if message.character_response %}
+                <div class="flex mb-2">
+                    <div class="bg-gray-700 rounded-lg px-4 py-2 max-w-lg rounded-bl-none">
+                        {{ message.character_response }}
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+            <!-- {% include 'chat/message_list.html' %} -->
+        </div>
+        <form class="p-4" id="chat-form">
+            <div class="flex items-center">
+                <input id="message-input" type="text" name="message" placeholder="Type your message here..."
+                    class="flex-1 mr-4 p-2 rounded-l-lg bg-gray-700">
+                <button type="submit"
+                    class="px-4 py-2 bg-green-500 text-white rounded-r-lg hover:bg-green-600">Send</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        $('#chat-form').submit(function(event) {
+            event.preventDefault();
+            var form_data = $(this).serialize();
+
+            var user_message = $('input[name=message]').val();
+
+            $('#chat-form')[0].reset();
+            $('#chat-messages').append('<div class="flex justify-end mb-2"><div class="bg-gray-600 rounded-lg px-4 py-2 max-w-sm rounded-br-none">' +user_message +'</div></div>');
+            $('#chat-messages').append('<div class="typing-indicator mt-2 animate-pulse">{{character.name}} is typing...</div>');
+            // Scroll to the bottom of the chat container
+            $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+
+            $.ajax({
+            url: '{% url  "send_message" character.id %}',
+            type: 'POST',
+            data: form_data,
+            success: function(response) {
+                var chatbot_response = response.bot_response;
+                $('#chat-messages').append('<div class="flex mb-2"><div class="bg-gray-700 rounded-lg px-4 py-2 max-w-lg rounded-bl-none">' + chatbot_response + '</div></div>');
+                // Remove the typing indicator from the chat container
+                $('#chat-messages .typing-indicator').remove();
+                // Scroll to the bottom of the chat container
+                $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+
+            }
+            });
+
+        });
+        });
+    </script>
+</body>
+</html>

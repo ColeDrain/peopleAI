@@ -1,1 +1,6 @@
 venv
+tailwind.config.js
+ts
+.env
+.vscode
+*.ipynb
