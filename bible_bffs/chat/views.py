@@ -39,7 +39,6 @@ def character_chat(request, character_id):
     return render(request, 'chat/chat.html', {'character': character, 'messages': messages})
 
 
-
 @csrf_exempt
 def send_message(request, character_id):    
     if request.method == 'POST':
@@ -93,26 +92,3 @@ def send_message(request, character_id):
         
     else:
         return HttpResponseBadRequest()
-
-
-
-import csv
-from django.http import HttpResponse
-from django.db import connection
-
-def export_csv(request, table_name):
-    # Get the SQLite table data
-    cursor = connection.cursor()
-    cursor.execute(f"SELECT * FROM {table_name}")
-    table_data = cursor.fetchall()
-
-    # Create the HttpResponse object with CSV header
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = f'attachment; filename="{table_name}.csv"'
-
-    # Write the table data to the response as CSV
-    writer = csv.writer(response)
-    writer.writerow([col[0] for col in cursor.description]) # Write column headers
-    writer.writerows(table_data)
-
-    return response

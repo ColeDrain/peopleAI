@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import character_list, character_chat, send_message
+from .views import character_list, character_chat, send_message, export_csv
 
 urlpatterns = [
     path('', character_list, name='character_list'),

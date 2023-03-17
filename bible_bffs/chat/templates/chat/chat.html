@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,7 @@
             color: #ccc;
         }
     </style>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'chat/output.css' %}">
 </head>
 <body class="bg-gray-800 text-white">
     <div class="flex flex-col h-screen max-w-5xl mx-auto">
