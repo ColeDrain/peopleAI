@@ -27,7 +27,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='secret key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["bible-bff-production.up.railway.app", "127.0.0.1"]
+
+CSRF_TRUSTED_ORIGINS = ['https://bible-bff-production.up.railway.app']
 
 
 # Application definition
