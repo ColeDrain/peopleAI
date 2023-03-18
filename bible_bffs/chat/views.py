@@ -12,6 +12,9 @@ from django.contrib.sessions.backends.db import SessionStore
 from .models import Character, Chat
 from django.contrib.auth.models import User
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 def character_list(request):
     characters = Character.objects.all()
