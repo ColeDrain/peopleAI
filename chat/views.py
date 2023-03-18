@@ -11,9 +11,6 @@ from uuid import uuid4
 from .models import Character, Chat
 from django.contrib.auth.models import User
 
-from dotenv import load_dotenv
-load_dotenv()
-
 
 def character_list(request):
     characters = Character.objects.all()
@@ -46,7 +43,7 @@ def send_message(request, character_id):
         character = get_object_or_404(Character, id=character_id)
 
         # Get the OpenAI Chatbot response
-        openai.api_key = os.getenv("OPENAI_API_KEY")
+        openai.api_key = os.environ.get("OPENAI_API_KEY")
 
         # Get or create the user for the current session
         user_id = request.session.get('user_id')
