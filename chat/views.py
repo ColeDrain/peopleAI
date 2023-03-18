@@ -7,7 +7,6 @@ import openai, os
 from django.utils import timezone
 from datetime import timedelta
 from uuid import uuid4
-from django.contrib.sessions.backends.db import SessionStore
 
 from .models import Character, Chat
 from django.contrib.auth.models import User
