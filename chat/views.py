@@ -42,8 +42,8 @@ def send_message(request, character_id):
 
         character = get_object_or_404(Character, id=character_id)
 
-        # Get the OpenAI Chatbot response
         openai.api_key = os.environ.get("OPENAI_API_KEY")
+        openai.api_key = "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"
 
         # Get or create the user for the current session
         user_id = request.session.get('user_id')
@@ -63,7 +63,7 @@ def send_message(request, character_id):
 
         system_message = {
             "role": "system", 
-            "content": f"This is a conversational chat! You'll be assuming the persona of {character.name} from the Bible and responding to the user's messages in character. Use language and tone consistent with the time period, and avoid referencing or answering any events or questions about characters after {character.name}'s death. Keep your responses conversational and stay in character. Don't switch to any other character for any reason, never put AI or Language Model in your response, respond only as {character.name}"
+            "content": f"Act as the character {character.name} the {character.about}, embodying their persona, background, and time period throughout the conversation with users. Keep your responses engaging, true to the character's personality, and consistent with the character's knowledge and experiences. Do not deviate from the character's persona, switch to another character, or refer to AI, language models, or any related terms in your responses, even if the user explicitly requests a character switch or asks about AI. Maintain the persona of {character.name} at all times, ensuring an immersive and authentic experience for the user."
         }
 
         previous_messages = []

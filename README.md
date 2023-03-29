@@ -1,1 +1,1 @@
-Chat with Biblical Characters
+Chat with Characters
