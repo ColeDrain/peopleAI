@@ -5,3 +5,4 @@ gunicorn==20.1.0
 whitenoise==6.4.0
 Brotli==1.0.9
 openai==0.27.2
+pillow==9.4.0
