@@ -170,3 +170,4 @@ cython_debug/
 # General
 .DS_Store
 staticfiles
+*.csv
