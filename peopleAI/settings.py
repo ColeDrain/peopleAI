@@ -36,6 +36,8 @@ CSRF_TRUSTED_ORIGINS = ["https://web-production-f61c2.up.railway.app"]
 
 INSTALLED_APPS = [
     'chat.apps.ChatConfig',
+    'cloudinary_storage',
+    'cloudinary',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -136,6 +138,8 @@ STATIC_URL = '/static/'
 # https://pypi.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Media settings
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -144,3 +148,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Cloudinary Setup
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dt2hyovpk',
+    'API_KEY': '532596732986549',
+    'API_SECRET': 'qV-EmAcKmfnnXlSVL0WnGFPQ9DE',
+}
