@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block content %}
-    <main class="bg-gray-800 text-white">
+    <main class="bg-gray-800 text-white fixed top-0 left-0 w-full h-full z-50">
         <div class="flex flex-col h-screen max-w-5xl mx-auto">
             <div class="flex justify-start items-center mt-8 space-x-4">
                 <a href="{% url 'character_list' %}" class="block ">
@@ -48,8 +48,10 @@
             </div>
             <form class="p-4" id="chat-form">
                 <div class="flex items-center">
-                    <input id="message-input" type="text" name="message" placeholder="Type your message here..."
-                        class="flex-1 mr-4 p-2 rounded-l-lg bg-gray-700">
+                    {% comment %} <input id="message-input" type="text" name="message" placeholder="Type your message here..."
+                        class="flex-1 mr-4 p-2 rounded-l-lg bg-gray-700"> {% endcomment %}
+                    <textarea id="message-input" name="message" placeholder="Type your message here..."
+                        class="flex-1 mr-4 p-2 rounded-l-lg bg-gray-700"></textarea>
                     <button type="submit"
                         class="px-4 py-2 bg-green-500 text-white rounded-r-lg hover:bg-green-600">Send</button>
                 </div>
@@ -65,7 +67,7 @@
             event.preventDefault();
             var form_data = $(this).serialize();
 
-            var user_message = $('input[name=message]').val();
+            var user_message = $('textarea[name=message]').val();
 
             $('#chat-form')[0].reset();
             $('#chat-messages').append('<div class="flex justify-end mb-2"><div class="bg-gray-600 rounded-lg px-4 py-2 max-w-sm rounded-br-none">' +user_message +'</div></div>');
@@ -89,6 +91,15 @@
             });
 
         });
+        $('#message-input').on('keydown', function(event) {
+            if (event.keyCode === 13 && !event.shiftKey) {
+                event.preventDefault();
+                var user_message = $('#message-input').val().trim();
+                if (user_message.length > 0) {
+                    $('#chat-form').submit();
+                }
+            }
+        });        
         });
     </script>
 {% endblock scripts %}
