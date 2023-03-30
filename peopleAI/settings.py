@@ -35,15 +35,15 @@ CSRF_TRUSTED_ORIGINS = ["https://web-production-f61c2.up.railway.app"]
 # Application definition
 
 INSTALLED_APPS = [
-    'chat.apps.ChatConfig',
-    'cloudinary_storage',
-    'cloudinary',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'chat.apps.ChatConfig',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
