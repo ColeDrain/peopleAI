@@ -43,7 +43,6 @@ def send_message(request, character_id):
         character = get_object_or_404(Character, id=character_id)
 
         openai.api_key = os.environ.get("OPENAI_API_KEY")
-        openai.api_key = "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"
 
         # Get or create the user for the current session
         user_id = request.session.get('user_id')
