@@ -4,7 +4,6 @@ ts
 .env
 .vscode
 *.ipynb
-**/input.css
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -171,3 +170,4 @@ cython_debug/
 .DS_Store
 staticfiles
 *.csv
+chat/static/chat/input.css
