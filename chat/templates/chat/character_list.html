@@ -6,7 +6,7 @@
 {% block content %}
     <div class="flex flex-row justify-around items-center mx-0 mt-8 mb-4">
         <div class="text-center">
-            <p class="text-4xl italic">people.AI</p>
+            <a class="text-4xl italic" href="{% url '' %}">people.AI</a>
         </div>
 
         <div
@@ -42,11 +42,15 @@
         $(document).ready(function() {
             $('input[type="search"]').on('keyup', function() {
                 var searchText = $(this).val().toLowerCase();
-                $('ul.grid > li').each(function() {
-                    var currentLiText = $(this).text().toLowerCase(),
-                        showCurrentLi = currentLiText.indexOf(searchText) !== -1;
-                    $(this).toggle(showCurrentLi);
-                });
+                if (searchText === '') {
+                    $('ul.grid > li').show();
+                } else {
+                    $('ul.grid > li').each(function() {
+                        var currentLiText = $(this).text().toLowerCase(),
+                            showCurrentLi = currentLiText.indexOf(searchText) !== -1;
+                        $(this).toggle(showCurrentLi);
+                    });
+                }
             });
         });
     </script>
